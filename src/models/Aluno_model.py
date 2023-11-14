@@ -36,27 +36,7 @@ class Aluno:
         return self.__endereco
     
     def get_endereco_by_cep(self, cep=''):
-        _cep = cep
-        if _cep == '' and self.__endereco['cep'] != '':
-            print("if")
-            _cep = self.__endereco['cep']
-        elif _cep == '' and self.__endereco['cep'] == '':
-            return False
-        
-        _cep = ''.join(caractere for caractere in _cep if caractere.isdigit())
-
-        headers = {'Accept': 'application/json'}
-        try:
-            r = requests.get(f'https://viacep.com.br/ws/{_cep}/json/', headers=headers)
-            if r.status_code == 200:
-                dic_endereco = r.json()
-                for key in dic_endereco:
-                    if key in self.__endereco:
-                        self.__endereco[key] = dic_endereco[key]
-        except:
-            pass
-
-        return self.__endereco
+        pass
 
     # Setter methods
     def set_cpf(self, cpf):

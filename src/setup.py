@@ -1,5 +1,4 @@
-from Aluno.Aluno import Aluno
-from Menu.Menu import Menu
+
 
 def main():
     a = Aluno()
