@@ -1,7 +1,7 @@
 from datetime import datetime
 import requests
 
-class Aluno:
+class AlunoController:
     def __init__(self):
         self.__cpf = ''
         self.__nome = ''

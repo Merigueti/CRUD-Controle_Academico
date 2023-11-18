@@ -1,4 +1,6 @@
-class Disciplina_md:
+import _sqlite3
+
+class DisciplinaModel:
     def __init__(self, codigo, nome, carga_horaria, professor):
         self.__codigo = codigo
         self.__nome = nome
@@ -25,4 +27,8 @@ class Disciplina_md:
 
     @staticmethod
     def delete_by_code(code):
+        pass
+
+    @staticmethod
+    def save(codigo, nome, carga_horaria, professor):
         pass
