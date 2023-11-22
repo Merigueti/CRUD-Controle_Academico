@@ -32,16 +32,12 @@ class DisciplinaController:
         if professor != '':
             self.__professor = professor
 
-    def listar():
+    def listar_disciplinas():
         lista = DisciplinaModel.get_all()
-        return lista
+        return lista        
 
-    def save(self, codigo, nome, carga_horaria, professor):
+    def registrar(self):
         try:
-            self.set_codigo(codigo)
-            self.set_nome(nome)
-            self.set_carga_horaria(carga_horaria)
-            self.set_professor(professor)
             DisciplinaModel.save(self.__codigo, self.__nome, self.__carga_horaria, self.__professor)
             return 'Disciplina salva com sucesso'
         except:

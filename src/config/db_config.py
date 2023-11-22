@@ -12,7 +12,7 @@ TABLE_DISCIPLINA = """
 
 TABLE_ALUNO = '''
     CREATE TABLE IF NOT EXISTS Aluno(
-    cpf TEXT NOT NULL,
+    cpf TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
     aniversario DATE NOT NULL,
     email TEXT NOT NULL,

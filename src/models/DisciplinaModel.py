@@ -10,9 +10,9 @@ class DisciplinaModel:
 
     def __str__(self):
         return str({'codigo':self.__codigo,
-                'nome':self.__nome,
-                'carga_horaria':self.__carga_horaria,
-                'professor':self.__professor})
+                    'nome':self.__nome,
+                    'carga_horaria':self.__carga_horaria,
+                    'professor':self.__professor})
 
     @staticmethod
     def get_by_code(code):
@@ -73,6 +73,21 @@ class DisciplinaModel:
         cur = con.cursor()
         cur.execute(f"""INSERT INTO Disciplina VALUES
                     ({codigo},'{nome}',{carga_horaria},'{professor}')""")
+        con.commit()
+        cur.close()
+        con.close()
+
+    @staticmethod
+    def update(code, nome, carga_horaria, professor):
+        con = sqlite3.connect(DB_PATH)
+        cur = con.cursor()
+
+        cur.execute("""
+            UPDATE Disciplina
+            SET nome = ?, carga_horaria = ?, professor = ?
+            WHERE code = ?
+        """, (nome, carga_horaria, professor, code))
+
         con.commit()
         cur.close()
         con.close()
