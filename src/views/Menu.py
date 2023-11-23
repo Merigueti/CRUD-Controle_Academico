@@ -2,9 +2,9 @@ import os
 
 class Menu:
     def __init__(self):
-        self.superior = "╔════════════════════════════════════════════════════╗"
-        self.central  = "╠════════════════════════════════════════════════════╣"
-        self.inferior = "╚════════════════════════════════════════════════════╝"
+        self.__superior = "╔════════════════════════════════════════════════════╗"
+        self.__central  = "╠════════════════════════════════════════════════════╣"
+        self.__inferior = "╚════════════════════════════════════════════════════╝"
 
     def limpar_tela(self):
         """
@@ -37,13 +37,13 @@ class Menu:
             None: Se a opção escolhida não estiver dentro do intervalo válido.
         """
         self.limpar_tela()
-        print(self.superior)
+        print(self.__superior)
         if(titulo != ''):
             print(f"║ {titulo.ljust(50)} ║")
-            print(self.central)
+            print(self.__central)
         for opcao in opcoes:
             print(f"║ {opcoes.index(opcao) + 1}. {opcao.ljust(47)} ║")
-        print(self.inferior)
+        print(self.__inferior)
         try:
             opc = int(input('● '))
             if opc not in range(1, len(opcoes) + 1):
@@ -72,9 +72,9 @@ class Menu:
         """
         r = ''
         self.limpar_tela()
-        print(self.superior)
+        print(self.__superior)
         print(f"║ {texto.ljust(50)} ║")
-        print(self.inferior)
+        print(self.__inferior)
         r = input('● ')
         try:
             r = funcao_de_convercao(r)
@@ -98,9 +98,9 @@ class Menu:
         direita = int(25 - ((len(err)/2) + 6))
         esquerda = int(25 + (len(err)/2))
         self.limpar_tela()
-        print(f"{self.superior}")
+        print(f"{self.__superior}")
         print(f"║⚠{''.ljust(direita)}ERROR:{err.ljust(esquerda)}⚠║▒")
-        print(f"{self.inferior}▒")
+        print(f"{self.__inferior}▒")
         print(" ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒")
         input('')
 

@@ -1,8 +1,9 @@
-from Menu import Menu
+from views.Menu import Menu
 from controllers.DisciplinaController import DisciplinaController
 
-class disciplinaMenu(Menu):
+class disciplinaMenu:
     def __init__(self):
+        self.m = Menu()
         self.dc = DisciplinaController()
         self.opt = [
             'Cadastrar Nova Disciplina',
@@ -15,43 +16,52 @@ class disciplinaMenu(Menu):
     def call_menu(self):
         opt = None
         while opt == None:
-            opt = self.menu_de_opcoes(self.opt, 'Controle de Disciplinas')
+            opt = self.m.menu_de_opcoes(self.opt, 'Controle de Disciplinas')
         if opt == 1:
             self.cadatrar()
         
     def cadatrar(self):
         while True:
-            nome = self.menu_input_check("Escreva o nome da Disciplina ", str)
-            ok = self.dc.set_nome(nome)
-            if ok == 'err':
-                self.error(ok[1])
-            else:
-                break
+            nome = self.m.menu_input_check("Escreva o nome da Disciplina ", str)
+            if nome is not None:
+                ok = self.dc.set_nome(nome)
+                if ok[0] == 'err':
+                    self.m.error(ok[1])
+                else:
+                    break
 
         while True:
-            professor = self.menu_input_check("Escreva o nome do professor responsaval", str)
-            ok = self.dc.set_professor(professor)
-            if ok == 'err':
-                self.error(ok[1])
-            else:
-                break
+            professor = self.m.menu_input_check("Escreva o nome do professor responsaval", str)
+            if professor is not None:
+                ok = self.dc.set_professor(professor)
+                if ok[0] == 'err':
+                    self.m.error(ok[1])
+                else:
+                    break
 
         while True:
-            ch = self.menu_input_check("Escreva a carga horaria em Horas", int)
-            ok = self.dc.set_carga_horaria(ch)
-            if ok == 'err':
-                self.error(ok[1])
-            else:
-                break
+            ch = self.m.menu_input_check("Escreva a carga horaria em Horas", int)
+            if ch is not None:
+                ok = self.dc.set_carga_horaria(ch)
+                if ok[0] == 'err':
+                    self.m.error(ok[1])
+                else:
+                    break
         
         while True:
-            codigo = self.menu_input_check("Escreva o codigo numerico referente a Disciplina", int)
-            ok = self.dc.set_codigo(codigo)
-            if ok == 'err':
-                self.error(ok[1])
-            else:
-                break
-            
+            codigo = self.m.menu_input_check("Escreva o codigo numerico referente a Disciplina", int)
+            if codigo is not None:
+                ok = self.dc.set_codigo(codigo)
+                if ok[0] == 'err':
+                    self.m.error(ok[1])
+                else:
+                    ok = self.dc.registrar()
+                    if ok[0] == 'err':
+                        self.m.error(ok[1])
+                    else:
+                        # O registro foi bem-sucedido, podemos sair do loop
+                        break
+
         
         
 
