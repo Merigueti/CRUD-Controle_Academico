@@ -13,13 +13,25 @@ class DisciplinaModel:
                     'nome':self.__nome,
                     'carga_horaria':self.__carga_horaria,
                     'professor':self.__professor})
+    
+    def get_codigo(self):
+        return self.__codigo
+
+    def get_nome(self):
+        return self.__nome
+
+    def get_carga_horaria(self):
+        return self.__carga_horaria
+
+    def get_professor(self):
+        return self.__professor
 
     @staticmethod
-    def get_by_code(code):
+    def get_by_codigo(codigo):
         con = sqlite3.connect(DB_PATH)
         cur = con.cursor()
         
-        cur.execute('SELECT * FROM Disciplina WHERE code = ?', (code,))
+        cur.execute('SELECT * FROM Disciplina WHERE codigo = ?', (codigo,))
         result = cur.fetchall()
         result = list(result[0])
         
@@ -27,6 +39,23 @@ class DisciplinaModel:
         con.close()
         
         return DisciplinaModel(result[0], result[1], result[2], result[3])
+    
+    @staticmethod
+    def get_all_codigos():
+        codigos = []
+
+        con = sqlite3.connect(DB_PATH)
+        cur = con.cursor()
+
+        cur.execute('SELECT codigo FROM Disciplina')
+        result = cur.fetchall()
+
+        codigos = [row[0] for row in result]
+
+        cur.close()
+        con.close()
+
+        return codigos
 
     @staticmethod
     def get_all():
@@ -59,10 +88,10 @@ class DisciplinaModel:
         con.close()
 
     @staticmethod
-    def delete_by_code(code):
+    def delete_by_codigo(codigo):
         con = sqlite3.connect(DB_PATH)
         cur = con.cursor()
-        cur.execute('DELETE FROM Disciplina WHERE code = ?', (code,))
+        cur.execute('DELETE FROM Disciplina WHERE codigo = ?', (codigo,))
         con.commit()
         cur.close()
         con.close()
@@ -78,15 +107,15 @@ class DisciplinaModel:
         con.close()
 
     @staticmethod
-    def update(code, nome, carga_horaria, professor):
+    def update(codigo, nome, carga_horaria, professor):
         con = sqlite3.connect(DB_PATH)
         cur = con.cursor()
 
         cur.execute("""
             UPDATE Disciplina
             SET nome = ?, carga_horaria = ?, professor = ?
-            WHERE code = ?
-        """, (nome, carga_horaria, professor, code))
+            WHERE codigo = ?
+        """, (nome, carga_horaria, professor, codigo))
 
         con.commit()
         cur.close()

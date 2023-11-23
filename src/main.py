@@ -1,4 +1,5 @@
 import sqlite3
+from controllers.DisciplinaController import DisciplinaController
 from models.DisciplinaModel import DisciplinaModel
 from config.db_config import TABLE_DISCIPLINA, TABLE_ALUNO
 from config.db_config import DB_PATH
@@ -13,18 +14,19 @@ def call_configs():
 
 def main():
     call_configs()
+    dis_controller = DisciplinaController()
+    print(dis_controller.set_carga_horaria(60))
+    print(dis_controller.set_nome('POO'))
+    print(dis_controller.set_codigo(6))
+    print(dis_controller.set_professor("Fabio"))
+    print(dis_controller.registrar())
+    print(dis_controller.procurar_disciplina(60))
+    l = dis_controller.listar_disciplinas()
+    # l = DisciplinaModel.get_all()
+    for i in l:
+        print(i)
+    
 
-    DisciplinaModel.save(0,"poo",60,"Jorge")
-    DisciplinaModel.save(1,"batata",30,"Hiago")
-    lista = DisciplinaModel.get_all()
-    for l in lista:
-        print(l)
-
-    DisciplinaModel.delete_by_code(0)
-
-    lista = DisciplinaModel.get_all()
-    for l in lista:
-        print(l)
 
 if __name__ == '__main__':
     main()
