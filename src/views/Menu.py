@@ -83,8 +83,11 @@ class Menu:
             self.error("Não foi possivel converter o Dado!")
             return None
         
-
-
+    def listar(self, lista):
+        self.limpar_tela()
+        for l in lista:
+            print(f"● {l}", end="\n\n")
+        
     def error(self, err):
         """
         Exibe uma mensagem de erro formatada na tela.

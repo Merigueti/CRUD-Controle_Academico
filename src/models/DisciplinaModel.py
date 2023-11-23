@@ -9,10 +9,7 @@ class DisciplinaModel:
         self.__professor = professor
 
     def __str__(self):
-        return str({'codigo':self.__codigo,
-                    'nome':self.__nome,
-                    'carga_horaria':self.__carga_horaria,
-                    'professor':self.__professor})
+        return (f"Codigo: {self.__codigo}\nNome: {self.__nome}\nCarga Horaria: {self.__carga_horaria}\nProfessor Responsavel:{self.__professor}")
     
     def get_codigo(self):
         return self.__codigo

@@ -14,11 +14,13 @@ class disciplinaMenu:
         ]
     
     def call_menu(self):
-        opt = None
-        while opt == None:
+        while True:
             opt = self.m.menu_de_opcoes(self.opt, 'Controle de Disciplinas')
-        if opt == 1:
-            self.cadatrar()
+            if opt == 1:
+                self.cadatrar()
+            elif opt == 4:
+                self.listar()
+        
         
     def cadatrar(self):
         while True:
@@ -62,8 +64,13 @@ class disciplinaMenu:
                         # O registro foi bem-sucedido, podemos sair do loop
                         break
 
-        
-        
+    def listar(self):
+        a = []
+        lista = self.dc.listar_disciplinas()
+        for l in lista:
+            a.append(str(l))
+        self.m.listar(a)
+        input('')
 
 
         

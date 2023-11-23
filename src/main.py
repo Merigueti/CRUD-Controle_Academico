@@ -1,5 +1,6 @@
 import sqlite3
 from views.disciplinaMenu import disciplinaMenu
+from views.Menu import Menu
 from config.db_config import TABLE_DISCIPLINA, TABLE_ALUNO
 from config.db_config import DB_PATH
 
@@ -15,9 +16,6 @@ def main():
     call_configs()
     m_disciplina = disciplinaMenu()
     m_disciplina.call_menu()
-    
-    
-
 
 if __name__ == '__main__':
     main()
