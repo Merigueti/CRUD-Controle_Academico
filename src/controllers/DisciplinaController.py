@@ -63,14 +63,15 @@ class DisciplinaController:
             return ['err', 'Erro ao carregar parametros!']
 
     def deletar(self, codigo):
-        DisciplinaModel.delete_by_codigo(codigo)
+        ok = DisciplinaModel.delete_by_codigo(codigo)
+        return ok
 
     def atualizar(self):
-        # try:
-        DisciplinaModel.update(self.__codigo, self.__nome, self.__carga_horaria, self.__professor)
-        return ['msg', 'Disciplina salva com sucesso!']
-        # except:
-        #     return ['err', 'Erro ao salva Disciplina!']
+        try:
+            DisciplinaModel.update(self.__codigo, self.__nome, self.__carga_horaria, self.__professor)
+            return ['msg', 'Disciplina salva com sucesso!']
+        except:
+            return ['err', 'Erro ao salva Disciplina!']
 
     def registrar(self):
         try:

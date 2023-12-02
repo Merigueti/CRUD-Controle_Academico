@@ -88,10 +88,16 @@ class DisciplinaModel:
     def delete_by_codigo(codigo):
         con = sqlite3.connect(DB_PATH)
         cur = con.cursor()
+        cur.execute('SELECT * FROM Disciplina WHERE codigo = ?', (codigo,))
+        if cur.fetchone() is None:
+            cur.close()
+            con.close()
+            return ['err', 'Disciplina não localizada!']
         cur.execute('DELETE FROM Disciplina WHERE codigo = ?', (codigo,))
         con.commit()
         cur.close()
         con.close()
+        return ['msg', 'Deletado!']
 
     @staticmethod
     def save(codigo, nome, carga_horaria, professor):

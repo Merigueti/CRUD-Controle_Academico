@@ -69,8 +69,13 @@ class disciplinaMenu(Menu):
                         break
 
     def atualizar(self):
-        codigo = self.menu_input_check('Escreva o codigo da Disciplina', int)
-        ok = self.dc.load(codigo)
+        try:
+            codigo = self.menu_input_check('Escreva o codigo da Disciplina', int)
+            ok = self.dc.load(codigo)
+        except:
+            self.error('Codigo Invalido!')
+            return
+
         if ok[0] == 'msg':
             while True:
                 nome = self.menu_input_check(f"Escreva o novo nome da Disciplina: [{self.dc.get_nome()}]", str)
@@ -128,5 +133,9 @@ class disciplinaMenu(Menu):
 
     def remover(self):
         codigo = self.menu_input_check('Escreva o codigo da Disciplina', int)
-        self.dc.deletar(codigo)
+        ok = self.dc.deletar(codigo)
+        if ok[0] == 'err':
+            self.error(ok[1])
+        else:
+            self.menu_input_check(ok[1], str)
         

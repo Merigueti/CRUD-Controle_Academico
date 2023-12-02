@@ -68,10 +68,16 @@ class AlunoModel:
     def delete_by_cpf(cpf):
         con = sqlite3.connect(DB_PATH)
         cur = con.cursor()
+        cur.execute('SELECT * FROM Aluno WHERE cpf = ?', (cpf,))
+        if cur.fetchone() is None:
+            cur.close()
+            con.close()
+            return ['err', 'Disciplina não localizada!']
         cur.execute('DELETE FROM Aluno WHERE cpf = ?', (cpf,))
         con.commit()
         cur.close()
         con.close()
+        return ['msg', 'Deletado!']
 
     @staticmethod
     def save(cpf, nome, data_de_nascimento, email, endereco):
