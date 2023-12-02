@@ -110,7 +110,7 @@ class DisciplinaModel:
 
         cur.execute("""
             UPDATE Disciplina
-            SET nome = ?, carga_horaria = ?, professor = ?
+            SET name = ?, ch = ?, professor = ?
             WHERE codigo = ?
         """, (nome, carga_horaria, professor, codigo))
 

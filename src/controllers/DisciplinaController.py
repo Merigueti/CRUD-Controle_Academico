@@ -7,6 +7,18 @@ class DisciplinaController:
         self.__carga_horaria = ''
         self.__professor = ''
 
+    def get_codigo(self):
+        return self.__codigo
+
+    def get_nome(self):
+        return self.__nome
+
+    def get_carga_horaria(self):
+        return self.__carga_horaria
+
+    def get_professor(self):
+        return self.__professor
+
     def procurar_disciplina(self, codigo):
         disiciplina = DisciplinaModel.get_by_codigo(codigo)
         return disiciplina
@@ -45,13 +57,20 @@ class DisciplinaController:
         self.__nome = dis.get_nome()
         self.__carga_horaria = dis.get_carga_horaria()
         self.__professor = dis.get_professor()
+        if dis is not None:
+            return ['msg', 'Disciplina salva com sucesso!']
+        else:
+            return ['err', 'Erro ao carregar parametros!']
+
+    def deletar(self, codigo):
+        DisciplinaModel.delete_by_codigo(codigo)
 
     def atualizar(self):
-        try:
-            DisciplinaModel.update(self.__codigo, self.__nome, self.__carga_horaria, self.__professor)
-            return ['msg', 'Disciplina salva com sucesso!']
-        except:
-            return ['err', 'Erro ao salva Disciplina!']
+        # try:
+        DisciplinaModel.update(self.__codigo, self.__nome, self.__carga_horaria, self.__professor)
+        return ['msg', 'Disciplina salva com sucesso!']
+        # except:
+        #     return ['err', 'Erro ao salva Disciplina!']
 
     def registrar(self):
         try:
