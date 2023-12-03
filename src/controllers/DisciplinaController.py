@@ -58,7 +58,7 @@ class DisciplinaController:
         self.__carga_horaria = dis.get_carga_horaria()
         self.__professor = dis.get_professor()
         if dis is not None:
-            return ['msg', 'Disciplina salva com sucesso!']
+            return ['msg', 'Disciplina carregada com sucesso!']
         else:
             return ['err', 'Erro ao carregar parametros!']
 

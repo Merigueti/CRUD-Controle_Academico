@@ -1,7 +1,7 @@
 from views.Menu import Menu
 from controllers.DisciplinaController import DisciplinaController
 
-class disciplinaMenu(Menu):
+class DisciplinaMenu(Menu):
     def __init__(self):
         super().__init__()
         self.dc = DisciplinaController()
@@ -24,6 +24,8 @@ class disciplinaMenu(Menu):
                 self.remover()
             elif opt == 4:
                 self.listarDis()
+            elif opt == 5:
+                break
         
         
     def cadatrar(self):

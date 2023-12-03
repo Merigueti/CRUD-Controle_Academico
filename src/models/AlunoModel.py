@@ -33,6 +33,22 @@ class AlunoModel:
         else:
             return None
 
+    @staticmethod
+    def get_all_cpf():
+        codigos = []
+
+        con = sqlite3.connect(DB_PATH)
+        cur = con.cursor()
+
+        cur.execute('SELECT cpf FROM Aluno')
+        result = cur.fetchall()
+
+        codigos = [row[0] for row in result]
+
+        cur.close()
+        con.close()
+
+        return codigos
 
     @staticmethod
     def get_all():
