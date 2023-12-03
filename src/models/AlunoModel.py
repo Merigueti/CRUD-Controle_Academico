@@ -10,11 +10,7 @@ class AlunoModel:
         self.__endereco = endereco
 
     def __str__(self):
-        return str({'cpf':self.__cpf,
-                    'nome':self.__nome,
-                    'data_de_nascimento':self.__data_de_nascimento,
-                    'email':self.__email,
-                    'endereco': self.__endereco})
+        return str(f"'cpf': {self.__cpf}\n'nome': {self.__nome}\ndata_de_nascimento: {self.__data_de_nascimento}\nemail: {self.__email}\nendereco: {self.__endereco}")
 
     @staticmethod
     def get_by_cpf(cpf):
@@ -88,7 +84,7 @@ class AlunoModel:
         if cur.fetchone() is None:
             cur.close()
             con.close()
-            return ['err', 'Disciplina não localizada!']
+            return ['err', 'Aluno(a) não localizado!']
         cur.execute('DELETE FROM Aluno WHERE cpf = ?', (cpf,))
         con.commit()
         cur.close()

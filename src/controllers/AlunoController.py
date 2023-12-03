@@ -28,12 +28,13 @@ class AlunoController:
         return self.__email
 
     def get_endereco(self):
-        return f"{self.__endereco['logradouro']}, {self.__endereco['bairro']}, {self.__endereco['localidade']}-{self.__endereco['uf']}"
+        return f"{self.__endereco['cep']}: {self.__endereco['logradouro']}, {self.__endereco['bairro']}, {self.__endereco['localidade']}-{self.__endereco['uf']}"
 
     def set_cpf(self, cpf):
         cpf_tratado = ''.join(caractere for caractere in cpf if caractere.isdigit())
         lista_de_cpfs = AlunoModel.get_all_cpf()
         if cpf_tratado in lista_de_cpfs:
+            self.__cpf = cpf_tratado
             return ['err', 'CPF em uso!']
         if len(cpf_tratado) == 11:
             self.__cpf = cpf_tratado
@@ -76,10 +77,17 @@ class AlunoController:
         self.__endereco['uf'] = uf
         return ['msg', 'Endereço salvo com sucesso!']
     
+    def deletar(self):
+        try:
+            ok = AlunoModel.delete_by_cpf(self.__cpf)
+            return ok
+        except Exception as e:
+            return ['err', f'Erro ao deletar aluno: {str(e)}']
+    
     def registrar(self):
         try:
             # Substitua AlunoModel pelo nome correto da classe/modelo do aluno
-            AlunoModel.save(self.__cpf, self.__nome, self.__data_de_nascimento, self.__email, self.__endereco)
+            AlunoModel.save(self.__cpf, self.__nome, self.__data_de_nascimento, self.__email, self.get_endereco())
             return ['msg', 'Aluno registrado com sucesso!']
         except Exception as e:
             return ['err', f'Erro ao registrar aluno: {str(e)}']
@@ -99,3 +107,10 @@ class AlunoController:
             return ['msg', 'Aluno salvo com sucesso!']
         except Exception as e:
             return ['err', f'Erro ao salvar aluno: {str(e)}']
+        
+    def listar_alunos(self):
+        try:
+            lista_alunos = AlunoModel.get_all()
+            return lista_alunos
+        except Exception as e:
+            return ['err', f'Erro ao listar alunos: {str(e)}']

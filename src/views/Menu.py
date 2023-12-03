@@ -56,7 +56,7 @@ class Menu:
             return None
 
 
-    def menu_input_check(self, texto, funcao_de_convercao):
+    def menu_input_check(self, texto, funcao_de_convercao=str):
         """
         Exibe um menu simples para entrada de dados e verifica se a conversão é bem-sucedida.
 
