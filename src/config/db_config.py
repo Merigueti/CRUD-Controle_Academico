@@ -20,3 +20,14 @@ TABLE_ALUNO = '''
     );
     '''
 
+TABLE_MATRICULA = '''
+    CREATE TABLE IF NOT EXISTS Matricula(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cpf_aluno TEXT NOT NULL,
+    codigo_disciplina INTEGER NOT NULL,
+    horario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cpf_aluno) REFERENCES Aluno(cpf) ON DELETE CASCADE,
+    FOREIGN KEY (codigo_disciplina) REFERENCES Disciplina(codigo) ON DELETE CASCADE
+    );
+    '''
+

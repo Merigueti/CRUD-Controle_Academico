@@ -274,6 +274,7 @@ class AlunoMenu(Menu):
         for l in lista:
             a.append(str(l))
         self.listar(a)
+        input()
 
     def remover(self):
         self.ac.set_cpf("00000000000")
