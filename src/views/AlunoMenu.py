@@ -19,8 +19,8 @@ class AlunoMenu(Menu):
             opt = self.menu_de_opcoes(self.opt, 'Controle de Alunos(as)')
             if opt == 1:
                 self.cadatrar()
-            #elif if opt == 2:
-            #     self.atualizar()
+            elif opt == 2:
+                self.atualizar()
             elif opt == 3:
                 self.remover()
             elif opt == 4:
@@ -77,7 +77,7 @@ class AlunoMenu(Menu):
             cep = self.menu_input_check("Escreva o CEP do Aluno", str)
             if cep is not None:
                 endereco = CepService.get_endereco_por_cep(cep)
-                if endereco == None:
+                if endereco == None or 'erro' in endereco:
                     endereco = {}
                     endereco['cep'] = cep
                     endereco['logradouro'] = 'Não encontrado'
@@ -125,7 +125,6 @@ class AlunoMenu(Menu):
         
         self.ac.set_endereco(cep,logradouro,bairro,localidade,uf)
         print(self.ac.get_endereco())
-        input()
         
         while True:
             cpf = self.menu_input_check("Escreva o CPF do Aluno", str)
@@ -142,13 +141,132 @@ class AlunoMenu(Menu):
 
     def atualizar(self):
         try:
-            codigo = self.menu_input_check('Escreva o codigo da Disciplina', int)
-            ok = self.dc.load(codigo)
+            cpf = self.menu_input_check('Escreva o CPF do aluno que deseja atulizar', str)
+            ok = self.ac.load(cpf)
+            if ok[0] == 'err':
+                self.error(ok[1])
+                return
         except:
             self.error('Codigo Invalido!')
             return
-
         
+        while True:
+            nome = self.menu_input_check(f"Escreva o nome do aluno(a): [{self.ac.get_nome()}]", str)
+            if nome is not '':
+                ok = self.ac.set_nome(nome)
+                if ok[0] == 'err':
+                    self.error(ok[1])
+                else:
+                    break
+            else:
+                break
+
+        while True:
+            opt = self.menu_de_opcoes(['Ok', 'Editar'], f'Data de nascimento [{self.ac.get_data_de_nascimento()}]')
+            if opt == 1:
+                break
+            elif opt == 2:
+                while True:
+                    dia = self.menu_input_check(f"Dia que o aluno Nasceu", int)
+                    if dia is not None:
+                        if dia > 31 or dia < 1:
+                            self.error("DIA INVALIDO!")
+                        else:
+                            break
+                
+                while True:
+                    mes = self.menu_input_check("Escreva o mês que o aluno Nasceu.", int)
+                    if mes is not None:
+                        if mes > 12 or mes < 1:
+                            self.error("MÊS INVALIDO!")
+                        else:
+                            break
+
+                while True:
+                    ano = self.menu_input_check("Escreva o Ano que o aluno Nasceu.", int)
+                    if ano is not None:
+                        if ano < 1900:
+                            self.error("ANO INVALIDO!")
+                        else:
+                            self.ac.set_data_de_nascimento(ano,mes,dia)
+                            self.menu_input_check(f"IDADE: {self.ac.get_idade()}", str)
+                            break
+                break
+            
+        while True:
+            email = self.menu_input_check(f"Escreva o email do Aluno [{self.ac.get_email()}]", str)
+            if email is not '':
+                ok = self.ac.set_email(email)
+                if ok[0] == 'err':
+                    self.error(ok[1])
+                else:
+                    break
+            else:
+                break
+        
+        while True:
+            opt = self.menu_de_opcoes(['Ok', 'Editar'], f'Endereco [{self.ac.get_endereco()}]')
+            if opt == 1:
+                break
+            elif opt == 2:
+                while True:
+                    cep = self.menu_input_check("Escreva o CEP do Aluno", str)
+                    if cep is not None:
+                        endereco = CepService.get_endereco_por_cep(cep)
+                        print(endereco)
+                        if endereco == None or 'erro' in endereco:
+                            endereco = {}
+                            endereco['cep'] = cep
+                            endereco['logradouro'] = 'Não encontrado'
+                            endereco['bairro'] = 'Não encontrado'
+                            endereco['localidade'] = 'Não Encontrado'
+                            endereco['uf'] = 'Não Encontrado'
+                        break
+                    else:
+                        break
+                
+                self.menu_input_check("Para confirmar, deixe o endereço em branco \nou insira a informação correta para substituir")
+
+                while True:
+                    logradouro = self.menu_input_check(f"Logradouro: {endereco['logradouro']}", str)
+                    if logradouro == '':
+                        logradouro = endereco['logradouro']
+                        break
+                    else:
+                        break
+
+                while True:
+                    bairro = self.menu_input_check(f"Bairro: {endereco['bairro']}", str)
+                    if bairro == '':
+                        bairro = endereco['bairro']
+                        print(bairro)
+                        break
+                    else:
+                        break
+                
+                while True:
+                    localidade = self.menu_input_check(f"Cidade: {endereco['localidade']}", str)
+                    if localidade == '':
+                        localidade = endereco['localidade']
+                        break
+                    else:
+                        break
+                
+                while True:
+                    uf = self.menu_input_check(f"Estado: {endereco['uf']}", str)
+                    if uf == '':
+                        uf = endereco['uf']
+                        break
+                    else:
+                        break
+                self.ac.set_endereco(cep,logradouro,bairro,localidade,uf)
+                break
+                
+        ok = self.ac.atualizar()
+        if ok[0] == 'err':
+            self.error(ok[1])
+        else:
+            self.menu_input_check(ok[1])
 
     def listarAlunos(self):
         a = []
@@ -156,7 +274,6 @@ class AlunoMenu(Menu):
         for l in lista:
             a.append(str(l))
         self.listar(a)
-        input('')
 
     def remover(self):
         self.ac.set_cpf("00000000000")

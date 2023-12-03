@@ -11,6 +11,21 @@ class AlunoModel:
 
     def __str__(self):
         return str(f"'cpf': {self.__cpf}\n'nome': {self.__nome}\ndata_de_nascimento: {self.__data_de_nascimento}\nemail: {self.__email}\nendereco: {self.__endereco}")
+    
+    def get_cpf(self):
+        return self.__cpf
+
+    def get_nome(self):
+        return self.__nome
+    
+    def get_email(self):
+        return self.__email
+    
+    def get_data_de_nascimento(self):
+        return self.__data_de_nascimento
+
+    def get_endereco(self):
+        return self.__endereco
 
     @staticmethod
     def get_by_cpf(cpf):
@@ -110,7 +125,7 @@ class AlunoModel:
 
         cur.execute("""
             UPDATE Aluno
-            SET nome = ?, data_de_nascimento = ?, email = ?, endereco = ?
+            SET name = ?, aniversario = ?, email = ?, endereco = ?
             WHERE cpf = ?
         """, (nome, data_de_nascimento, email, endereco, cpf))
 

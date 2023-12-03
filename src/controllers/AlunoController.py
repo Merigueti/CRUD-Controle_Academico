@@ -18,6 +18,9 @@ class AlunoController:
 
     def get_nome(self):
         return self.__nome
+    
+    def get_data_de_nascimento(self):
+        return self.__data_de_nascimento
 
     def get_idade(self):
         hoje = datetime.today()
@@ -28,8 +31,11 @@ class AlunoController:
         return self.__email
 
     def get_endereco(self):
-        return f"{self.__endereco['cep']}: {self.__endereco['logradouro']}, {self.__endereco['bairro']}, {self.__endereco['localidade']}-{self.__endereco['uf']}"
-
+        if isinstance(self.__endereco, dict):
+            return f"{self.__endereco['cep']}: {self.__endereco['logradouro']}, {self.__endereco['bairro']}, {self.__endereco['localidade']}-{self.__endereco['uf']}"
+        else:
+            return self.__endereco
+    
     def set_cpf(self, cpf):
         cpf_tratado = ''.join(caractere for caractere in cpf if caractere.isdigit())
         lista_de_cpfs = AlunoModel.get_all_cpf()
@@ -55,7 +61,8 @@ class AlunoController:
 
     def load(self, cpf):
         try:
-            aluno = self.ac.get_by_cpf(cpf)
+            self.set_cpf(cpf)
+            aluno = AlunoModel.get_by_cpf(self.get_cpf())
             self.__cpf = aluno.get_cpf()
             self.__nome = aluno.get_nome()
             self.__data_de_nascimento = aluno.get_data_de_nascimento()
@@ -70,6 +77,7 @@ class AlunoController:
         return ['msg', 'Email salvo com sucesso!']
 
     def set_endereco(self, cep, logradouro, bairro, localidade, uf):
+        self.__endereco = {}
         self.__endereco['cep'] = cep
         self.__endereco['logradouro'] = logradouro
         self.__endereco['bairro'] = bairro
@@ -86,7 +94,6 @@ class AlunoController:
     
     def registrar(self):
         try:
-            # Substitua AlunoModel pelo nome correto da classe/modelo do aluno
             AlunoModel.save(self.__cpf, self.__nome, self.__data_de_nascimento, self.__email, self.get_endereco())
             return ['msg', 'Aluno registrado com sucesso!']
         except Exception as e:
@@ -94,19 +101,11 @@ class AlunoController:
 
     def atualizar(self):
         try:
-            # Substitua AlunoModel pelo nome correto da classe/modelo do aluno
-            AlunoModel.update(self.__cpf, self.__nome, self.__data_de_nascimento, self.__email, self.__endereco)
+            AlunoModel.update(self.__cpf, self.__nome, self.__data_de_nascimento, self.__email, self.get_endereco())
             return ['msg', 'Aluno atualizado com sucesso!']
         except Exception as e:
             return ['err', f'Erro ao atualizar aluno: {str(e)}']
 
-    def salvar(self):
-        try:
-            # Substitua AlunoModel pelo nome correto da classe/modelo do aluno
-            AlunoModel.save(self.__cpf, self.__nome, self.__data_de_nascimento, self.__email, self.__endereco)
-            return ['msg', 'Aluno salvo com sucesso!']
-        except Exception as e:
-            return ['err', f'Erro ao salvar aluno: {str(e)}']
         
     def listar_alunos(self):
         try:
