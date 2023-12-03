@@ -16,7 +16,7 @@ Projeto em Python: sistema de controle acadêmico com SQLite. Gerencia disciplin
 
 ### **1. Descrição**
 
-O objetivo deste projeto é implementar um sistema de controle acadêmico usando a linguagem de Programação Python. O sistema vislumbrado deve permitir o controle de disciplinas e alunos para uma instituição de ensino. Inicialmente, é necessário criar um banco de dados no **SQLite**, com o nome **controle\_academico.db,** contendo as tabelas **Disciplina**, **Aluno** e **Matricula**. Os campos dessas tabelas serão descritos ao longo deste documento. O banco de dados deve ser criado somente na primeira execução o sistema. O sistema desenvolvido deve possuir o seguinte menu principal:
+O objetivo deste projeto é implementar um sistema de controle acadêmico usando a linguagem de Programação Python. O sistema vislumbrado deve permitir o controle de disciplinas e alunos para uma instituição de ensino. Inicialmente, é necessário criar um banco de dados no **SQLite**, com o nome **controle\_academico.db,** contendo as tabelas **Disciplina**, **Aluno** e **Matricula**. Os campos dessas tabelas serão descritos ao longo deste documento. O banco de dados deve ser criado somente na primeira execução do sistema. O sistema desenvolvido deve possuir o seguinte menu principal:
 
 ```
 ---------------- Menu Principal ----------------

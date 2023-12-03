@@ -274,6 +274,7 @@ class AlunoMenu(Menu):
         for l in lista:
             a.append(str(l))
         self.listar(a)
+        print(f"TOTAL DE ALUNOS(AS) CADASTRADOS: {len(lista)}")
         input()
 
     def remover(self):

@@ -131,6 +131,7 @@ class DisciplinaMenu(Menu):
         for l in lista:
             a.append(str(l))
         self.listar(a)
+        print(f"TOTAL DE DISCIPLINAS CADASTRADAS: {len(lista)}")
         input('')
 
     def remover(self):

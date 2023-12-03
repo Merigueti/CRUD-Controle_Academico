@@ -1,8 +1,8 @@
 import sqlite3
 from views.DisciplinaMenu import DisciplinaMenu
 from views.AlunoMenu import AlunoMenu
+from views.MatriculaMenu import MatriculaMenu
 from views.Menu import Menu
-from models.MatriculaModel import MatriculaModel
 from config.db_config import TABLE_DISCIPLINA, TABLE_ALUNO, TABLE_MATRICULA
 from config.db_config import DB_PATH
 
@@ -24,7 +24,7 @@ def main_menu():
         elif opcao == 2:
             m_aluno.call_menu()
         elif opcao == 3:
-            MatriculaModel.save(12345678915, 1)
+            m_matricula.call_menu()
         elif opcao == 4:
             exit()
 
@@ -33,6 +33,7 @@ if __name__ == '__main__':
     m = Menu()
     m_disciplina = DisciplinaMenu()
     m_aluno = AlunoMenu()
+    m_matricula = MatriculaMenu()
     opt = [
         "Controle de Disciplinas",
         "Controle de Alunos(as)",

@@ -24,38 +24,25 @@ class MatriculaModel:
         return self.__horario
 
     @staticmethod
-    def get_by_id(id):
+    def delete_by_cpf_and_codigo(cpf_aluno, codigo_disciplina):
         con = sqlite3.connect(DB_PATH)
         cur = con.cursor()
 
-        cur.execute('SELECT * FROM Matricula WHERE id = ?', (id,))
-        result = cur.fetchall()
-        if not result:
-            return None
+        cur.execute('SELECT * FROM Matricula WHERE cpf_aluno = ? AND codigo_disciplina = ?', (cpf_aluno, codigo_disciplina))
+        if cur.fetchone() is None:
+            cur.close()
+            con.close()
+            return ['err', 'Matrícula não localizada!']
 
-        result = list(result[0])
+        cur.execute('DELETE FROM Matricula WHERE cpf_aluno = ? AND codigo_disciplina = ?', (cpf_aluno, codigo_disciplina))
+        con.commit()
 
         cur.close()
         con.close()
 
-        return MatriculaModel(result[0], result[1], result[2], result[3])
+        return ['msg', 'Matrícula deletada com sucesso!']
 
-    @staticmethod
-    def get_all_ids():
-        ids = []
 
-        con = sqlite3.connect(DB_PATH)
-        cur = con.cursor()
-
-        cur.execute('SELECT id FROM Matricula')
-        result = cur.fetchall()
-
-        ids = [row[0] for row in result]
-
-        cur.close()
-        con.close()
-
-        return ids
 
     @staticmethod
     def get_all():
@@ -86,23 +73,6 @@ class MatriculaModel:
 
         cur.close()
         con.close()
-
-    @staticmethod
-    def delete_by_id(id):
-        con = sqlite3.connect(DB_PATH)
-        cur = con.cursor()
-
-        cur.execute('SELECT * FROM Matricula WHERE id = ?', (id,))
-        if cur.fetchone() is None:
-            cur.close()
-            con.close()
-            return ['err', 'Matrícula não localizada!']
-
-        cur.execute('DELETE FROM Matricula WHERE id = ?', (id,))
-        con.commit()
-        cur.close()
-        con.close()
-        return ['msg', 'Matrícula Deletada!']
 
     @staticmethod
     def save(cpf_aluno, codigo_disciplina):
