@@ -57,7 +57,7 @@ class MatriculaMenu(Menu):
         print(f"TOTAL DE MATRICULAS CADASTRADAS: {len(lista)}")
         input('')
         while True:
-            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exporta para matriculas.csv?')
+            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exportar para matriculas.csv?')
             if opt == 1:
                 try:
                     self.mc.criar_csv(lista , "matriculas.csv")

@@ -39,7 +39,7 @@ class DisciplinaMenu(Menu):
                     break
 
         while True:
-            professor = self.menu_input_check("Escreva o nome do professor responsaval", str)
+            professor = self.menu_input_check("Escreva o nome do professor responsável", str)
             if professor is not None:
                 ok = self.dc.set_professor(professor)
                 if ok[0] == 'err':
@@ -48,7 +48,7 @@ class DisciplinaMenu(Menu):
                     break
 
         while True:
-            ch = self.menu_input_check("Escreva a carga horaria em Horas", int)
+            ch = self.menu_input_check("Escreva a carga horária em Horas", int)
             if ch is not None:
                 ok = self.dc.set_carga_horaria(ch)
                 if ok[0] == 'err':
@@ -57,7 +57,7 @@ class DisciplinaMenu(Menu):
                     break
         
         while True:
-            codigo = self.menu_input_check("Escreva o codigo numerico referente a Disciplina", int)
+            codigo = self.menu_input_check("Escreva o código numérico referente a Disciplina", int)
             if codigo is not None:
                 ok = self.dc.set_codigo(codigo)
                 if ok[0] == 'err':
@@ -72,7 +72,7 @@ class DisciplinaMenu(Menu):
 
     def atualizar(self):
         try:
-            codigo = self.menu_input_check('Escreva o codigo da Disciplina', int)
+            codigo = self.menu_input_check('Escreva o código da Disciplina', int)
             ok = self.dc.load(codigo)
         except:
             self.error('Codigo Invalido!')
@@ -102,7 +102,7 @@ class DisciplinaMenu(Menu):
                     break
 
             while True:
-                ch = self.menu_input_check(f"Escreva a carga horaria em Horas: [{self.dc.get_carga_horaria()}]", str)
+                ch = self.menu_input_check(f"Escreva a carga horária em Horas: [{self.dc.get_carga_horaria()}]", str)
                 if ch == '':
                     break
                 else:
@@ -134,7 +134,7 @@ class DisciplinaMenu(Menu):
         print(f"TOTAL DE DISCIPLINAS CADASTRADAS: {len(lista)}")
         input('')
         while True:
-            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exporta para disciplinas.csv?')
+            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exportar para disciplinas.csv?')
             if opt == 1:
                 try:
                     self.dc.criar_csv(lista , "disciplinas.csv")
@@ -147,7 +147,7 @@ class DisciplinaMenu(Menu):
                 break
 
     def remover(self):
-        codigo = self.menu_input_check('Escreva o codigo da Disciplina', int)
+        codigo = self.menu_input_check('Escreva o código da Disciplina', int)
         ok = self.dc.deletar(codigo)
         if ok[0] == 'err':
             self.error(ok[1])

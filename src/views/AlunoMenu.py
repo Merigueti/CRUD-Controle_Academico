@@ -277,7 +277,7 @@ class AlunoMenu(Menu):
         print(f"TOTAL DE ALUNOS(AS) CADASTRADOS: {len(lista)}")
         input()
         while True:
-            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exporta para alunos.csv?')
+            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exportar para alunos.csv?')
             if opt == 1:
                 try:
                     self.ac.criar_csv(lista , "alunos.csv")
