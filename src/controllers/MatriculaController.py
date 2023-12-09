@@ -1,7 +1,7 @@
 from models.MatriculaModel import MatriculaModel
 from models.AlunoModel import AlunoModel
 from models.DisciplinaModel import DisciplinaModel
-
+import csv
 class MatriculaController:
     def __init__(self):
         self.__id = ''
@@ -20,6 +20,13 @@ class MatriculaController:
 
     def get_horario(self):
         return self.__horario
+    
+    def criar_csv(self, lista_matriculas, nome_arquivo):
+        with open(nome_arquivo, mode='w', newline='') as arquivo_csv:
+            _csv = csv.writer(arquivo_csv, delimiter=';')
+            _csv.writerow(["Horário", "CPF do Aluno", "Código Disciplina"])
+            for mt in lista_matriculas:
+                _csv.writerow(f"{mt.get_horario()};{mt.get_cpf_aluno()};{mt.get_codigo_disciplina()};".split(';'))
     
     def set_cpf_aluno(self, cpf):
         cpf_tratado = ''.join(caractere for caractere in cpf if caractere.isdigit())

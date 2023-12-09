@@ -1,5 +1,6 @@
 from models.AlunoModel import AlunoModel
 from datetime import datetime
+import csv
 
 class AlunoController:
     def __init__(self):
@@ -36,6 +37,13 @@ class AlunoController:
         else:
             return self.__endereco
     
+    def criar_csv(self, lista_alunos, nome_arquivo):
+        with open(nome_arquivo, mode='w', newline='') as arquivo_csv:
+            _csv = csv.writer(arquivo_csv, delimiter=';')
+            _csv.writerow(["cpf", "Nome", "email", "Data de nascimento", "Endereço"])
+            for al in lista_alunos:
+                _csv.writerow(f"{al.get_cpf()};{al.get_nome()};{al.get_email()};{al.get_data_de_nascimento()};{al.get_endereco()}".split(';'))
+
     def set_cpf(self, cpf):
         cpf_tratado = ''.join(caractere for caractere in cpf if caractere.isdigit())
         lista_de_cpfs = AlunoModel.get_all_cpf()

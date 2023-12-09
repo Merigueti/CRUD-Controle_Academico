@@ -276,6 +276,18 @@ class AlunoMenu(Menu):
         self.listar(a)
         print(f"TOTAL DE ALUNOS(AS) CADASTRADOS: {len(lista)}")
         input()
+        while True:
+            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exporta para alunos.csv?')
+            if opt == 1:
+                try:
+                    self.ac.criar_csv(lista , "alunos.csv")
+                    self.menu_input_check("Arquivo criado!")
+                    break
+                except:
+                    self.error("Erro ao criar arquivo!")
+                    break
+            elif opt == 2:
+                break
 
     def remover(self):
         self.ac.set_cpf("00000000000")
