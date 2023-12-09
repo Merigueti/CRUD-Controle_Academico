@@ -1,4 +1,5 @@
 from models.DisciplinaModel import DisciplinaModel
+import csv
 
 class DisciplinaController:
     def __init__(self):
@@ -6,6 +7,14 @@ class DisciplinaController:
         self.__nome = ''
         self.__carga_horaria = ''
         self.__professor = ''
+
+
+    def criar_csv(self, lista_disciplinas, nome_arquivo):
+        with open(nome_arquivo, mode='w', newline='') as arquivo_csv:
+            escritor_csv = csv.writer(arquivo_csv, delimiter=';')
+            escritor_csv.writerow(["Codigo", "Nome", "Carga Horaria", "Professor Responsavel"])
+            for dis in lista_disciplinas:
+                escritor_csv.writerow(f"{dis.get_codigo()};{dis.get_nome()};{dis.get_carga_horaria()};{dis.get_professor()}".split(';'))
 
     def get_codigo(self):
         return self.__codigo

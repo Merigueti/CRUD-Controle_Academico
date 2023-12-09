@@ -133,6 +133,18 @@ class DisciplinaMenu(Menu):
         self.listar(a)
         print(f"TOTAL DE DISCIPLINAS CADASTRADAS: {len(lista)}")
         input('')
+        while True:
+            opt = self.menu_de_opcoes(['Sim', 'Não'], 'Exporta para disciplinas.csv?')
+            if opt == 1:
+                try:
+                    self.dc.criar_csv(lista , "disciplinas.csv")
+                    self.menu_input_check("Arquivo criado!")
+                    break
+                except:
+                    self.error("Erro ao criar arquivo!")
+                    break
+            elif opt == 2:
+                break
 
     def remover(self):
         codigo = self.menu_input_check('Escreva o codigo da Disciplina', int)
