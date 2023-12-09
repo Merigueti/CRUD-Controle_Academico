@@ -53,7 +53,7 @@ class MatriculaController:
 
     def registrar(self):
         try:
-            MatriculaModel.save(self.__cpf_aluno, self.__codigo_disciplina)
-            return ['msg', 'Matrícula registrada com sucesso!']
+            ok = MatriculaModel.save(self.__cpf_aluno, self.__codigo_disciplina)
+            return ok
         except:
-            return ['err', 'Erro ao registrar Matrícula!']
+            return ok
